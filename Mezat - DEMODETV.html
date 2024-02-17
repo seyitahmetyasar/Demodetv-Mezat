@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="tr" class="ui-droppable"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style data-merge-styles="true"></style>
+    <style data-merge-styles="true"></style><style data-merge-styles="true"></style>
+    <meta name="description" content="Mezat - DEMODETV">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Mezat - DEMODETV">
+    <meta property="og:site_name" content="Mezat - DEMODETV">
+    <script src="./Mezat - DEMODETV_files/jquery-3.6.0.js.indir"></script>
+    <script src="./Mezat - DEMODETV_files/jquery-ui.js.indir"></script>
+    <link rel="shortcut icon" href="./Mezat - DEMODETV_files/5cbsrp7.png">
+    <link rel="stylesheet" href="./Mezat - DEMODETV_files/css">
+    <title>Mezat - DEMODETV</title>
+    <style type="text/css">
+  *, *:before, *:after {box-sizing: border-box;}
+  * {margin:0;padding:0;text-decoration: none;list-style-type: none;outline: none;}
+  html, body{ background: #11131a; color: white; font-family: Bebas Neue, Helvetica, sans-serif; margin: 0;}
+  input, button, textarea, select {padding: 8px 10px;background: transparent;color: white;border-radius: 10px;border: 1px solid #808080;}
+  button:hover {background-color: #000032;transition: all .3s;}
+  a {color: #ba1f26;}
+  a:hover {color: #e23841;transition: all .3s !important;}
+  button, .who .name, .streamers {cursor: pointer;}
+  #container{ display: flex; flex-direction: row; flex-wrap: nowrap;}
+  .pitches{ display: flex;margin-top: 10px;}
+  #container .pitch >img{ width: 100%; border: 1px solid black;}
+  #container .pitch{ position: relative;}
+  .who{ position: absolute; left: 0; top: 0; background: #11131a; color: white; text-align: center;border: 1px solid white;}
+  .who .money{ background: #000032; font-weight: bold;cursor: pointer;}
+  .who img.streamers{ width: 105px; display: block; height: 95px;background-image: linear-gradient(#ba1f26, #b51d24);border-bottom: 1px solid white;}
+  .who span, .who .money {font-size: 1.4rem;}
+  .who span{ border-bottom: 1px solid white; border-top: 1px solid white; display: flex; justify-content: center; align-items: center;}
+  .player .name {font-size: 1.6rem;}
+  .tools{ display: flex; flex-direction: column; gap: 1rem;margin-top: 10px;}
+  .player{position: relative; background: #000032; color: white; text-align: center; border: 3px solid white; width: 170px;}
+  .player.item{ width: 100px;}
+  .player.item .name{ font-size: 17px; display: flex; align-items: center; justify-content: center; text-align: center;}
+  .player img.pimg{ background-image: linear-gradient(#050938, #6bf5f7); border-bottom: 3px solid white; width: 100%;}
+  .tools .bottom {display: flex; flex-direction: row; margin-top: auto;}
+  .tools button{background: #000032;border: 2px solid #fbfbfa;margin: 0 5px;}
+  .logo{ position: absolute; right: 0; top: 0; width: 24px !important; height: 24px;}
+  .player.item .logo {width: 20px !important;height: 20px !important;}
+  .notif{ display: block !important; font-family: Verdana, Helvetica, sans-serif; font-size: 12px; text-align: center;}
+
+  .popupMS { position: fixed; top: 23vh; left: 50%; transform: translate(-50%, 0); background-color: #141D26; border-radius: 5px; box-shadow: 2px 3px 3px rgba(0,0,0,0.52); width: 95vw; max-width: 650px;overflow: hidden;z-index: 9999;}
+  .popup-header { display: flex; align-items: stretch; justify-content: space-between;background: #243447;}
+  .popup-header h3 { margin: 0; font-size: 1.5em;padding: 3px 10px;color: #8798A5;}
+  .popup-header .close-button { font-size: 1.5em; font-weight: bold; border: none; background: transparent; cursor: pointer;color: #8798A5;padding: 3px 10px;transition: all .3s !important;user-select: none;height: 100%;align-items: center;display: flex;}
+  .popup-header .close-button:hover {background: #BE1E2D;}
+  .popup-content { display: flex; flex-wrap: wrap;padding: 15px;max-height: 400px;overflow-y: auto;}
+  .popup-buttons {display: flex;align-items: center;}
+  .popup-buttons a:hover {color: #5fca5f;transition: all .3s !important;}
+
+  .popupMS.search{ max-width: 900px; top: 0;}
+  .popupMS.search .popup-content{ max-height: 85vh;}
+
+  .moneypop {display: flex;flex: 1;gap: 0.5rem;flex-direction: column;}
+  .dbt {display: grid;gap: 0.5rem;}
+  .moneypop > div, .moneypop > form {flex: 1;width: 100%;display: flex;gap: 0.5rem;}
+  .moneypop #playersearchinput, .moneypop textarea, .moneypop .ti{ flex: 4;}
+  .moneypop button{ flex: 1;min-width: 145px;}
+  .popupMS .popup-header{ font-size: 2rem;}
+  .popupMS input, .popupMS button, .popupMS textarea, .popupMS select { font-size: 1.5rem;}
+  #searchresults {display: flex;flex-wrap: wrap;justify-content: space-around;gap: 2rem;scroll-margin: 15px;}
+  #searchresults .player {position: relative;}
+  .rating{ position: absolute; left: 0; top: 0; background: #000032; padding: 6px; border-radius: 0 0 9px 0;}
+  .rating.position {top: 35px;border-radius: 0 9px 9px 0;}
+  #addplayertextarea{ background: white; color: #000032; width: 100%; border-radius: 0;}
+  mark{ background: #ba1f26; color: white; padding: 0 5px; border-radius: 5px;}
+  mark.green {background: #80C14B;color: #141D26;}
+  #searchresults .player .pimg {max-height: 167px;object-fit: contain;}
+  .bench{position: relative;height: 145px;border: 3px solid #dfe7d7;border-radius: 10px;margin: 0 5px;background-image: linear-gradient(#326a06, #4d950b);}
+  .bench::before{ content: ""; width: 100%; background: #f3f3f3; height: 3px; display: block; position: absolute; top: 50%;}
+  .blindiv {display: flex;justify-content: center;}
+  .drag.blindblur .pimg, .drag.blindblur .name {opacity: 0;}
+  .drag.blindblur {background-image: linear-gradient(#050938, #6bf5f7);}
+  label {-webkit-user-select: none;-ms-user-select: none;user-select: none;}
+  .blindiv label {cursor: pointer;padding-right: .5rem;}
+  .who.noimg{ width: 120px;}
+  .who.noimg >img{ display: none;}
+  .who.noimg .name {overflow: hidden;white-space: nowrap;word-break: break-all;text-overflow: ellipsis;display: block;}
+  .removeimg {justify-content: center;align-items: center;}
+  .removeimg input {flex: initial;}
+  .nextplayer:hover {transition: all .3s;background: #09095e;}
+  .streamers[src*="blob:null"] {object-fit: fill;}
+  .ti {display: flex;gap: .5rem;}
+  .ti select {flex: 1;}
+  .ti input {width: 190px;}
+  #leagues, #positions, #teams {background: #141d26;}
+  .fcard {width: 245px;margin: 0 auto;}
+  .count:not([data-count="0"]){ display: flex; justify-content: center;}
+  .count:not([data-count="0"])::before{ content: attr(data-count); display: flex; justify-content: center; align-items: center; height: 76px; width: 76px; border: 1px solid white; border-radius: 50%; font-weight: bold; font-size: 3rem;background-image: linear-gradient(#050938, #6bf5f7);}
+  [data-show="false"] {display: none!important;}
+  .vihi {visibility: hidden;opacity: 0;}
+  .editing {position:relative;pointer-events: none;}
+  .editing::before {content: "";position: absolute;width: 20px;height: 20px;top: 0;left: 0;right: 0;bottom: 0;margin: auto;border: 2px solid transparent;border-top-color: #A9894F;border-radius: 50%;animation: spinner 1s ease infinite;}
+  .editing::after {content: attr(data-c);position: absolute;left: 5px;}
+  @keyframes spinner {from {transform: rotate(0turn);} to {transform: rotate(1turn);}}
+  .settingspop {display: flex;flex-direction: column;flex: 1;}
+  .appearance {display: flex;align-items: center;justify-content: space-between !important;}
+  .appearance input {display: none;}
+  #fkorturval {width: 75px;padding: 0 10px;}
+  .player.circle {background: transparent;border: none;}
+  .player.circle .pimg {border: 4px solid #11131a;border-radius: 50%;background-image: linear-gradient(#050938, #6bf5f7);}
+  .player.circle .name {background: #11131a;padding: 0 2px;border-radius: 8px;font-size: 1.1rem;}
+  .player.circle.fc .pimg[src*="notfound"] + .name {display: block;}
+  .player.circle .logo {display: none;}
+  .player.circle.fc .pimg {border: none;border-radius: 0;background: transparent;}
+  .player.circle.fc .name {display: none;}
+  input[type="radio"] + label {position: relative;}
+  input[type="radio"]:checked + label::before {content: "✔";color: green;position: absolute;bottom: 0px;left: 10px;z-index: 99999;font-size: 2rem;}
+  .diger{ font-size: 1.2rem; display: flex; flex-direction: column; gap: 1rem;}
+  #randomplayers {position: relative;}
+  #randomplayers small {position: absolute;right: -4px;top: -4px;background: #ba1f26;font-size: 13px;padding: 0 10px;border-radius: 4px;}
+  .matches, .winner, .points .team {display: flex;align-items: center;border: 1px solid #243447;padding: 5px 0;border-radius: 8px;margin-bottom: 1rem;}
+  .matches > span {display: flex;flex: 1;align-items: center;gap: 1rem;}
+  .score {justify-content: center;}
+  .matches .home {justify-content: end;}
+  .matches .away {justify-content: start;}
+  .score > span:not(.dash) {font-weight: bold;font-size: 2rem;}
+  .weeks img, .points img {width: 42px;border: 3px solid #6bf5f7;border-radius: 50%;}
+  .winners {display: flex;justify-content: center;margin: 1rem 0;align-items: center;gap: 2rem;}
+  .winner {position: relative;margin: 0!important;padding: 5px 10px;display: flex;gap: .5rem;}
+  .winner::before, .points .team::before {content: attr(data-point);position: absolute;right: -12px;top: 0;background: #b91f26;width: 23px;height: 23px;border-radius: 50%;display: flex;align-items: center;justify-content: center;}
+  .weeks h2{ display: flex;justify-content: space-between;padding: 1rem 0;}
+  .weeks h2 >span{ display: flex; align-items: center; gap: .5rem; font-size: 14px;}
+  .weeks h2 >span a{ border-bottom: 1px solid;color: #8798A5;}
+  .weeks h2 > span svg path {fill: #FF0000;opacity: .5;}
+  .points {display: flex;gap: 1rem;}
+  .points .team {flex-direction: column;flex: 1;position: relative;background: #243447;color: white;box-shadow: 2px 3px 3px rgba(0,0,0,0.52);}
+  .points .team:hover{ background: #141d26; transition: all .3s !important;}
+  .po {font-size: 2rem;}
+  .cc{ display: flex; flex-direction: column; align-items: center;}
+  .cc::before{ content: "Chat'in Seçimi"; font-family: trebuchet ms; font-size: 10px; color: #6bf5f7;}
+  .points .team:first-child::after{ content: "🏆"; position: absolute; left: 0; top: 0;}
+    </style>
+  <meta name="google-adsense-platform-account" content="ca-host-pub-1556223355139109">
+<meta name="google-adsense-platform-domain" content="blogspot.com">
+</head>
+  <body>
+  <div id="container">
+
+    <div class="pitches">
+        <div class="pitch">
+          <div class="who">
+            <img class="streamers" src="./Mezat - DEMODETV_files/L7MY2YP.png" alt="" title="Fotoğrafı Güncelle">
+            <span class="name first" title="İsmi Güncelle">Berke Yoldaş</span>
+            <div class="money first" title="Parayı Güncelle">100.000</div>
+            <img class="logo" src="./Mezat - DEMODETV_files/5cbsrp7.png" alt="">
+          </div>
+          <img src="./Mezat - DEMODETV_files/iRDVJnt.jpg" alt="" draggable="false">
+          <div class="bench"></div>
+        </div>
+      
+        <div class="pitch">
+          <div class="who">
+            <img class="streamers" src="./Mezat - DEMODETV_files/IrVGdEs.png" alt="" title="Fotoğrafı Güncelle">
+            <span class="name second" title="İsmi Güncelle">Ron Visliy</span>
+            <div class="money second" title="Parayı Güncelle">100.000</div>
+            <img class="logo" src="./Mezat - DEMODETV_files/5cbsrp7.png" alt="">
+          </div>
+        <img src="./Mezat - DEMODETV_files/iRDVJnt.jpg" alt="" draggable="false">
+        <div class="bench"></div>
+        </div>
+      
+        <div class="pitch">
+          <div class="who">
+            <img class="streamers" src="./Mezat - DEMODETV_files/Y1SApgE.png" alt="" title="Fotoğrafı Güncelle">
+            <span class="name third" title="İsmi Güncelle">Yalçın Rohde</span>
+            <div class="money third" title="Parayı Güncelle">100.000</div>
+            <img class="logo" src="./Mezat - DEMODETV_files/5cbsrp7.png" alt="">
+          </div>
+        <img src="./Mezat - DEMODETV_files/iRDVJnt.jpg" alt="" draggable="false">
+        <div class="bench"></div>
+        </div>
+    </div>
+    
+    <div class="tools">
+      <div class="drag">
+        <div class="player dragme ui-draggable ui-draggable-handle demode" data-index="-1">
+          <img class="pimg" src="./Mezat - DEMODETV_files/5cbsrp7.png" alt="">
+          <span class="name">DEMODETV</span>
+          <img class="logo" src="./Mezat - DEMODETV_files/5cbsrp7.png" alt="">
+        </div>
+      </div>
+      <button class="fifacard">FC24 Kartını Göster</button>
+      <button class="nextplayer" data-w="-1">◀ Önceki Oyuncu</button>
+      <button class="nextplayer" data-w="1">Sonraki Oyuncu ▶</button>
+      <div class="blindiv"><label for="blind">Kör Tur</label><input type="checkbox" id="blind" name="blind" value="blind"></div>
+      <div class="count" data-count="0"></div>
+      
+      <button class="puandurumu">Puan Durumu</button>
+      <div class="bottom">
+        <button class="addplayer">+ Oyuncu Ekle/Sil</button>
+        <button class="settings" title="ayarlar">⚙️</button>
+      </div>
+    </div>
+
+  </div>
+  
+  <script type="text/javascript">
+
+  function createPopup(title, div, eb="") {
+    let popup = document.querySelector('.popupMS');
+    if (popup) {
+      setTimeout(() => {
+        popup.querySelector('.popup-header h3').innerHTML = title;
+        popup.querySelector('.popup-content').innerHTML = div;
+      }, 1);
+      return;
+    }
+    popup = document.createElement('div');
+    popup.classList.add('popupMS');
+    popup.innerHTML = `<div class="popup-header"><h3>${title}</h3><span class="popup-buttons">${eb}<span class="close-button">&times;</span></span></div><div class="popup-content">${div}</div>`;
+    document.body.appendChild(popup);
+    const closeButton = popup.querySelector('.close-button');
+    document.addEventListener('click', event => {
+      if (!popup.contains(event.target) || event.target === closeButton) {
+        popup.remove();
+      }
+    });
+  }
+  $(document).ready(function() {
+    function spin(el, addRemove=true) {
+      if(addRemove) {
+        $(el).addClass('editing');
+        $(el).find('span').addClass('vihi');
+      } else {
+        $(el).removeClass('editing');
+        $(el).find('span').removeClass('vihi');
+      }
+    }
+
+  let playerData = JSON.parse(localStorage.getItem('playerData'));
+  if (!playerData || (Array.isArray(playerData) && playerData.length === 0)) {
+    localStorage.removeItem('playerData');
+  }
+  const PLAYERS = [{name: "Messi", id: 158023},{name: "Ronaldo", id: 20801},]
+/*
+  const playerPositionsJSON = localStorage.getItem("playerpositions");
+  if(playerPositionsJSON) {
+    const playerPositions = JSON.parse(playerPositionsJSON);
+    playerPositions.forEach(player => {
+      const playerElement = $(`
+        <div class="player ui-draggable ui-draggable-handle item" style="position: absolute; left: ${player.left}px; top: ${player.top}px;">
+          <img class="pimg" src="https://cdn.futbin.com/content/fifa24/img/players/${player.id}.png?v=23" alt="" title="">
+          <span class="name">${player.name}</span>
+        </div>
+      `);
+      $('body').append(playerElement);
+    });
+  }
+
+  function savePlayerPositions() {
+    let playerPositions = $(".player.item").map(function() {
+        let leftValue = parseInt($(this).css("left"));
+        let topValue = parseInt($(this).css("top"));
+        let id = $(this).find(".pimg").attr("src").match(/(\d+)\.png/)[1];
+        let name = $(this).find(".name").text();
+        return { left: leftValue, top: topValue, id, name };
+    }).get();
+
+    let playerPositionsJSON = JSON.stringify(playerPositions);
+    localStorage.setItem("playerpositions", playerPositionsJSON);
+  }
+*/
+  function updateCount() {
+    let litem = $('.player.item').length
+    $('.count').attr('data-count', litem)
+  }
+
+  $("html").droppable({
+      accept: '.dragme',
+      drop: function(event, ui) {
+          var clone = $(ui.helper).clone();
+          clone.removeClass("dragme");
+          clone.addClass("item");
+          $(this).append(clone);
+          clone.draggable({
+              containment: 'parent',
+              stop: function(event, ui) {
+                updateCount()
+                // savePlayerPositions();
+              }
+          });
+      }
+  });
+  var a = 3;
+  $(".dragme").draggable({
+      helper: 'clone',
+      cursor: "move",
+      stop: function(event, ui) {
+        updateCount()
+        // savePlayerPositions();
+      }
+  });
+
+  $(document).on('dblclick', '.item', function(e){
+    e.preventDefault();
+    if (confirm('Sahadan sil?')) {
+      $(this).remove()
+      updateCount()
+    }
+  });
+
+  $(document).on('click', '.fifacard', function(e){
+    e.preventDefault();
+    let id = $('.tools .player .pimg').attr('data-id');
+    if(!id) return
+    let div = `<img class="fcard" src="https://media.contentapi.ea.com/content/dam/ea/easfc/fc-24/ratings/common/full/player-shields/en/${id}.png.adapt.265w.png" alt="">`
+    createPopup("FC24 Kartı", div)
+  });
+
+  const matchesJson = {
+	"players":["Chat","Berke Yoldaş","Yalçın Rohde","Ron Visliy"],
+	"t":["demodetv","berkeyoldas","yalcinrohdee","ronvisliy"],
+	"img":["5cbsrp7","L7MY2YP","Y1SApgE","IrVGdEs"],
+	"weeks":[
+	{"m":[{"o":[3,2],"s":[0,3]},{"o":[2,1],"s":[0,1]}],"w":["1:3","0:3","2:1"],"c":1,"u":["mmdC3uFnYi4","GmRElutSFIo"]},
+	{"m":[{"o":[1,3],"s":[2,1]},{"o":[2,1],"s":[1,3]}],"w":["1:3","2:1"],"c":2,"u":["B7PQCUVXL44","uYRqeZ9Ns1g"]},
+	{"m":[{"o":[1,2],"s":[0,0]},{"o":[3,2],"s":[3,0]},{"o":[3,1],"s":[1,0]}],"w":["3:3","0:3","1:1"],"c":3,"u":["BFT8YaPVTQo","8ydJZvqlHXQ"]},
+	{"m":[{"o":[2,1],"s":[2,1]},{"o":[3,1],"s":[2,0]},{"o":[3,2],"s":[5,3]}],"w":["3:3","0:3","2:1"],"c":3,"u":["W5RPeSJdW7c","UUzdebY3wNM"]},
+  {"m":[{"o":[1,3],"s":[1,0]},{"o":[2,3],"s":[0,2]},{"o":[2,1],"s":[0,1]}],"w":["1:3","3:1"],"c":2,"u":["x9pVygY9Ef8","eoLDPg1Y5Rs"]},
+  {"m":[{"o":[1,3],"s":[3,0]},{"o":[2,3],"s":[2,1]},{"o":[2,1],"s":[1,0]}],"w":["2:3", "0:3", "1:1"],"c":2,"u":["NDWY5nFGLq8","801oQFSqFgE"]},
+  {"m":[{"o":[3,1],"s":[0,0]},{"o":[2,1],"s":[2,2]},{"o":[2,3],"s":[0,0]}],"w":["1:3", "0:1", "2:1"],"c":2,"u":["ZhDmePawOm0","suh23GQYCOQ"]},
+  {"m":[{"o":[3,1],"s":[2,2]},{"o":[2,3],"s":[1,1]},{"o":[2,1],"s":[2,1]}],"w":["2:3", "0:3", "3:1"],"c":2,"u":["y_oXYebteWQ","n-43cdD_fKQ"]},
+]};
+
+
+function generateTPD() {
+  const points = {};
+  matchesJson.weeks.forEach(({ w }) => w.forEach((result) => {
+    const [player, point] = result.split(':');
+    points[matchesJson.players[player]] = (points[matchesJson.players[player]] || 0) + +point;
+  }));
+  matchesJson.players.forEach((player) => points[player] ??= 0);
+  return Object.entries(points)
+    .sort((a, b) => b[1] - a[1])
+    .map(([name, point]) => `<a href="https://twitter.com/${matchesJson.t[matchesJson.players.indexOf(name)]}" class="team" data-point="${point}" target="_blank">
+        <span class="im"><img src="https://i.imgur.com/${matchesJson.img[matchesJson.players.indexOf(name)]}.png"></span>
+        <span class="tn">${name}</span>
+    </a>`).join('');
+}
+
+
+function generatePD() {
+  let reversedJ = [...matchesJson.weeks].reverse()
+  return reversedJ.map((week, i) => {
+    const matchesHtml = week.m.map(match => `
+      <div class="matches">
+        <span class="home">
+          <span class="tn">${matchesJson.players[match.o[0]]}</span>
+          <span class="im"><img src="https://i.imgur.com/${matchesJson.img[match.o[0]]}.png"></span>
+        </span>
+        <span class="score">
+          <span class="sc">${match.s[0]}</span>
+          <span class="dash">-</span>
+          <span class="sc">${match.s[1]}</span>
+        </span>
+        <span class="away">
+          <span class="im"><img src="https://i.imgur.com/${matchesJson.img[match.o[1]]}.png"></span>
+          <span class="tn">${matchesJson.players[match.o[1]]}</span>
+        </span>
+      </div>`).join('');
+
+    const winnersHtml = week.w.map(winner => `
+      <span class="winner" data-point="${winner.split(':')[1]}" data-chat=${week.c==winner.split(':')[0]}>
+        <span class="im"><img src="https://i.imgur.com/${matchesJson.img[winner.split(':')[0]]}.png"></span>
+        <span class="tn">${matchesJson.players[winner.split(':')[0]]}</span>
+      </span>`).join('');
+    let chat = `<span class="cc"><span class="tn">${matchesJson.players[week.c]}</span></span>`
+    return `<div class="weeks"><h2>${matchesJson.weeks.length - i}. Hafta <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9c.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83c-.25.9-.83 1.48-1.73 1.73c-.47.13-1.33.22-2.65.28c-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44c-.9-.25-1.48-.83-1.73-1.73c-.13-.47-.22-1.1-.28-1.9c-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83c.25-.9.83-1.48 1.73-1.73c.47-.13 1.33-.22 2.65-.28c1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44c.9.25 1.48.83 1.73 1.73Z"/></svg>${["Mezat", "Simülasyon"].map((t, i) => `<a href="https://youtu.be/${week.u[i]}" target="_blank">${t}</a>`).join('')}</span></h2>
+      ${matchesHtml}
+      <div class="winners">${chat}${winnersHtml}</div></div>`;
+  }).join('');
+}
+
+
+  $(document).on('click', '.puandurumu', function(e){
+    e.preventDefault();
+    let div = `<div class="settingspop"><div class="points">${generateTPD()}</div>${generatePD()}</div>`
+    createPopup('Puan Durumu', div)
+  });
+  
+  function retAp(cl='', fc=false , id="158023", name="Messi") {
+    let pimg = `https://cdn.futbin.com/content/fifa24/img/players/${id}.png?v=23`;
+    let logo = ``
+    if (fc) {pimg = `https://media.contentapi.ea.com/content/dam/ea/easfc/fc-24/ratings/common/full/player-shields/en/${id}.png.adapt.265w.png`}
+    return `<div class="player${cl}">
+              <img class="pimg" src="${pimg}" alt="">
+              <span class="name">${name}</span>
+              <img class="logo" src="https://i.imgur.com/5cbsrp7.png" alt="">
+            </div>`
+  }
+
+  function setCheckboxFromLocalStorage(itemName, checkboxId) {
+    const storedValue = localStorage.getItem(itemName);
+    if (storedValue !== null) {
+        if (storedValue !== "true" && storedValue !== "false" ) {
+          $(`#${checkboxId}`).val(storedValue)
+        }
+        $(`input#${checkboxId}`).prop('checked', storedValue === "true");
+    }
+  }
+  
+  $(document).on('click', '.settings', function(e){
+    e.preventDefault();
+    let div = `<div class="settingspop">
+        <h1>Kart Görünümü</h1>
+        <div class="appearance">
+          <input type="radio" id="demode" name="appearance" value="demode" checked>
+          <label for="demode">
+            ${retAp('', false)}
+          </label>
+
+          <input type="radio" id="circle" name="appearance" value="circle">
+          <label for="circle">
+            ${retAp(' circle', false)}
+          </label>
+
+          <input type="radio" id="fc" name="appearance" value="fc">
+          <label for="fc">
+            ${retAp(' circle fc', true)}
+          </label>
+        </div>
+        <h1>Diğer</h1>
+        <div class="diger">
+          <div>
+            <input type="checkbox" id="showcount" name="showcount" value="showcount" checked>
+            <label for="showcount">Sahaya Eklenen Oyuncu Sayısını Göster</label>
+          </div>
+          <div>
+            <input type="checkbox" id="fkortur" name="fkortur" value="fkortur">
+            <label for="fkortur">Her <input id="fkorturval" name="fkorturval" type="number" step="1" min="5" placeholder="5"> Oyuncuda bir kör tur yap</label>
+          </div>
+          <div>
+            <input type="checkbox" id="fccardbutton" name="fccardbutton" value="fccardbutton" checked>
+            <label for="fccardbutton">"FC24 Kartını Göster" butonunu göster</label>
+          </div>
+          <div>
+            <input type="checkbox" id="puanbutton" name="puanbutton" value="puanbutton" checked>
+            <label for="puanbutton">"Puan Durumu" butonunu göster</label>
+          </div>
+          <div>
+            <input type="checkbox" id="fpitch" name="fpitch" value="fpitch">
+            <label for="fpitch">4 Saha olsun <small>(sayfa zoom seviyesini %70-80 yapmalısınız)</small></label>
+          </div>
+        </div>
+      </div>`
+    createPopup("Ayarlar", div)
+    let ap = localStorage.getItem("appearance") || "demode";
+    $(`input[id="${ap}"]`).attr('checked', true)
+    const items = ["showcount", "fkortur", "fccardbutton", "fpitch", "fkorturval", "puanbutton"];
+    items.forEach(item => {
+        setCheckboxFromLocalStorage(item, item);
+    });
+  });
+
+  function updateSt() {
+    const val = localStorage.getItem("appearance") || "demode";
+    const player = $('.tools .player');
+    player.removeClass('fc circle').addClass(` ${val.replace('fc', ' circle fc')}`);
+    const pimg = player.find('.pimg');
+    const src = pimg.attr('src');
+
+    if (src.includes('5cbsrp7') || src.includes('ZBd9k8c')) {
+      const imgSrc = val === "fc" ? 'https://i.imgur.com/ZBd9k8c.png' : 'https://i.imgur.com/5cbsrp7.png';
+      pimg.attr('src', imgSrc);
+    } else {
+      const dataId = pimg.attr('data-id');
+      const imgSrc = (val === "fc") ?
+        `https://media.contentapi.ea.com/content/dam/ea/easfc/fc-24/ratings/common/full/player-shields/en/${dataId}.png.adapt.265w.png` :
+        `https://cdn.futbin.com/content/fifa24/img/players/${dataId}.png?v=23`;
+      pimg.attr('src', imgSrc);
+    }
+
+    let showcount = localStorage.getItem("showcount");
+    $('.count').attr('data-show', showcount)
+    let fccardbutton = localStorage.getItem("fccardbutton");
+    $('.fifacard').attr('data-show', fccardbutton)
+    let puanbutton = localStorage.getItem("puanbutton");
+    $('.puandurumu').attr('data-show', puanbutton)
+    let fpitch = localStorage.getItem("fpitch");
+    let isFPitchTrue = fpitch === "true"; 
+    let pitchCount = $('.pitch').length
+    if (pitchCount < 4 && isFPitchTrue) {
+        let clonedPitch = $('.pitch:last').clone();
+        clonedPitch.find('.streamers').attr('src', 'https://i.imgur.com/5cbsrp7.png');
+        clonedPitch.find('.name ').toggleClass('third fourth').text('demodetv');
+        clonedPitch.find('.money').toggleClass('third fourth');
+        $('.pitches').append(clonedPitch);
+    } else if (!isFPitchTrue && pitchCount >= 4) {
+        $('.pitch:last').remove();
+    }
+  }
+
+  updateSt()
+  $(document).on('change', 'input[type="radio"][name="appearance"]', function(e){
+    let val = $(this).val();
+    localStorage.setItem("appearance", val)
+    updateSt()
+  });
+  
+  $(document).on('change', '.diger input[type="checkbox"]', function(e) {
+    let name = $(this).attr('name');
+    let isChecked = $(this).prop('checked');
+    localStorage.setItem(name, isChecked)
+    updateSt()
+  });
+  
+  $(document).on('input', '.diger #fkorturval', function(e) {
+    let name = $(this).attr('name');
+    let val = $(this).val().trim();
+    if (isNaN(val)) { val = 5}
+    localStorage.setItem(name, val)
+    updateSt()
+  });
+
+  $(document).on('click', '.nextplayer', function(e){
+      let playerEL = $(this).closest('.tools').find('.player')
+
+      let w = parseInt($(this).attr('data-w'));
+      let imgEL = playerEL.find('img.pimg')
+      let nameEL = playerEL.find('.name')
+      imgEL.attr('src', `https://i.imgur.com/5cbsrp7.png`)
+      nameEL.text("DEMODETV")
+      let currentIndex = parseInt(playerEL.attr('data-index'));
+
+      let PLAYERSN = JSON.parse(localStorage.getItem('playerData')) || PLAYERS;
+      let nextIndex = (currentIndex + w + PLAYERSN.length) % PLAYERSN.length;
+
+      let {name, id} = PLAYERSN[nextIndex]
+      const fkorturval = Number(localStorage.getItem('fkorturval')) || 5
+      const isChecked = (nextIndex + 1 === fkorturval || (nextIndex + 1) % fkorturval === 0) && (localStorage.getItem("fkortur") === "true");
+      $('#blind').prop('checked', isChecked).trigger('change');
+      let pimg = `https://cdn.futbin.com/content/fifa24/img/players/${id}.png?v=23`
+      let ap = localStorage.getItem("appearance")
+      playerEL.addClass(` ${ap?.replace('fc', ' circle fc')||''}`)
+      if (ap == "fc") {pimg = `https://media.contentapi.ea.com/content/dam/ea/easfc/fc-24/ratings/common/full/player-shields/en/${id}.png.adapt.265w.png`}
+
+      imgEL.attr('src', pimg)
+      imgEL.attr('data-id', id)
+      imgEL.attr('onerror', `this.onerror=null;this.src='https://www.fifacm.com/content/media/imgs/fc24/players/notfound_0.png?v=${nextIndex}';`)
+      nameEL.text(name)
+      playerEL.attr('data-index', nextIndex);
+  });
+
+  $(document).on('click', '.money', function(e){
+    let money = $(this).text().trim().replace('.','')
+    let cl = $(this).attr('class').replace('money ','')
+    let div = `
+    <form class="moneypop" data-class="${cl}" data-current-money="${money}">
+      <input id="moneyval" type="number" step="500" placeholder="+ -" title="mouse scroll tuşunu da kullanabilirsiniz" autocomplete="off" autofocus>
+      <button id="moneysave" type="submit">Kaydet</button>
+    </form>
+    `
+    createPopup("Parayı Güncelle", div)
+    $('#moneyval').focus();
+  });
+
+  $(document).on('click', '#moneysave', function(e){
+    let money = $(this).closest('.moneypop').attr('data-current-money')
+    let cl = $(this).closest('.moneypop').attr('data-class')
+    let minusmoney = $('#moneyval').val().trim();
+    let result = parseInt(money) + parseInt(minusmoney)
+    if(!result && result!==0) result = Number(money)
+    $(`.money.${cl}`).fadeOut(200, function() {
+      $(this).html(result.toLocaleString('tr')).fadeIn(200);
+    });
+    $('.popupMS').remove()
+  });
+
+  $(document).on('wheel', '#moneyval[type="number"]', function(e) {
+    e.preventDefault();
+    let currentValue = +$(this).val() || 0;
+    let step = +$(this).attr('step') || 1;
+    $(this).val(currentValue + (e.originalEvent.deltaY > 0 ? -step/2 : step/2));
+  });
+
+  $(document).on('click', '.who .name', function(e){
+    let money = $(this).text().trim()
+    let cl = $(this).attr('class').replace('name ','')
+    let div = `
+    <form class="moneypop" data-class="${cl}" data-current-money="${money}">
+      <input id="moneyval" type="text" placeholder="${money}" autocomplete="off" autofocus>
+      <div class="removeimg">
+        <label for="removeimg">Fotoğrafı da kaldır!</label><input type="checkbox" id="removeimg" name="removeimg" value="removeimg" ${$(`.who .name.${cl}`).closest('.who').hasClass('noimg')?'checked':''}>
+      </div>
+      <button id="namesave" type="submit">Kaydet</button>
+    </form>
+    `
+    createPopup("İsmi Güncelle", div)
+    $('#moneyval').focus();
+  });
+
+  $(document).on('click', '#namesave', function(e){
+    let money = $(this).closest('.moneypop').attr('data-current-money')
+    let cl = $(this).closest('.moneypop').attr('data-class')
+    let minusmoney = $('#moneyval').val().trim();
+    if ($('#removeimg').is(':checked')) {
+      $(`.who .name.${cl}`).closest('.who').addClass('noimg');
+    } else {
+      $(`.who .name.${cl}`).closest('.who').removeClass('noimg');
+    }
+    if(!minusmoney && minusmoney!==0) minusmoney = money
+    $(`.who .name.${cl}`).fadeOut(200, function() {
+      $(this).html(minusmoney).fadeIn(200);
+    });
+    $('.popupMS').remove();
+  });
+
+  $(document).on('click', '.addplayer', function(e){
+  let playerData = JSON.parse(localStorage.getItem('playerData')) || PLAYERS;
+
+  let div = `
+    <div class="moneypop">
+      <div class="notif"><a href="https://www.futbin.com/" target="_blank">Futbin</a> adresinden ya da en alttan arayarak <mark>oyuncu ismi</mark> ve <mark>oyuncu id</mark> ekleyebilirsiniz.<br>Lig ve pozisyon seçip oyuncu getirebilirsiniz!<br>Kaydetmeyi unutmayın!</div>
+      <div>
+      <textarea rows="5" id="playerval" type="text" placeholder="Oyuncu ismi;Oyuncu id" title="Oyuncu eklemek için format şu şekilde:\n\nOyuncu ismi;Oyuncu id\nOyuncu ismi;Oyuncu id\n\nÖrnek:\nMessi;158023\nRonaldo;20801">${playerData.map(player => `${player.name};${player.id}`).join('\n')}</textarea>
+      <div class="dbt">
+        <button id="playershuffle" title="Oyuncuları karıştır\nkaydetmeyi unutma!">Karıştır</button>
+        <button id="removeduplicates" title="Birden fazla eklenmiş oyuncuları kaldır!">Çift Kaldır</button>
+        <button id="randomplayers" title="Rastgele ~41 oyuncu\n\n4 GK\n7 CB\n4 LB/LWB\n4 RB/RWB\n10 CDM/CM/CAM\n4 LW/LM\n4 RW/RM\n4 ST/CF"><span>Rastgele</span><small>yeni</small></button>
+      </div>
+      </div>
+      <form onsubmit="event.preventDefault()">
+        <div class="ti">
+          <select id="leagues">
+            <option value="" disabled selected hidden>-- Lig Seç --</option>
+          </select>
+          <select id="positions">
+            <option value="" selected>-- Pozisyon --</option>
+            ${["GK", "LB", "LWB", "CB", "RB", "RWB", "CDM", "CM", "CAM", "LM", "LW", "RM", "RW", "CF", "ST"].map(position => {return `<option value="${position}">${position}</option>`;}).join('')}
+          </select>
+        </div>
+        <button id="getplayers" type="submit" title="seçilen ligden ve pozisyondan oyuncu getir"><span>Getir</span></button>
+      </form>
+      <form onsubmit="event.preventDefault()">
+        <input id="playersearchinput" type="text" placeholder="oyuncu ara...">
+        <button id="playersearch" type="submit" title="oyuncu ara"><span>Ara</span></button>
+      </form>
+        <div id="searchresults">
+      </div>
+    </div>
+  `;
+    createPopup(`Oyuncu Ekle <small style="color: #4c950a;">(${playerData.length})</small>`, div, `
+        <button id="playersave" type="submit" title="oyuncuları kaydet">Kaydet</button>`)
+        populateLeagues()
+        $('.popupMS').addClass('search')
+  });
+
+  function createPlayerDiv(item) {
+    const $div = $('<div>', {
+      class: 'player',
+      html: `
+        <img class="pimg" src="https://cdn.futbin.com/content/fifa24/img/players/${item.pid || item.id}.png?v=23" onerror="this.onerror=null;this.src='https://www.fifacm.com/content/media/imgs/fc24/players/notfound_0.png';">
+        <span class="name">${item.cardname || item.n}</span>
+        <img class="logo" src="https://i.imgur.com/5cbsrp7.png" alt="">
+        <span class="rating">${item.rating || item.r}</span>
+        <span class="rating position">${item.position || item.p}</span>
+        <div class="teamname">${item.teamname || "unknown"}</div>
+        <button data-player="${item.cardname || item.n};${item.pid || item.id}" id="addplayertextarea">Ekle</button>
+      `
+    });
+    return $div;
+  }
+
+  function searchAndLogResults(searchTerm) {
+    var u = `https://www.futwiz.com/en/searches/player24/${encodeURIComponent(searchTerm)}`;
+    var url = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`;
+    $.get(url, function(data) {
+      $('#searchresults').empty();
+      $('#teams').remove();
+      const seenPids = new Set();
+      JSON.parse(data).forEach(item => {
+        if (!seenPids.has(item.pid)) {
+          seenPids.add(item.pid);
+          const $div = createPlayerDiv(item);
+          $('#searchresults').append($div);
+          spin($('#playersearch'), false);
+          document.getElementById('searchresults').scrollIntoView({ behavior: 'smooth'});
+        }
+      });
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      console.error(`Error occurred during the request: ${jqXHR.status} - ${jqXHR.statusText}`);
+    });
+  }
+
+  $(document).on('click', '#playersearch', function(e){
+    let searchTerm = $('#playersearchinput').val().trim();
+    spin($('#playersearch'))
+    searchAndLogResults(searchTerm)
+  });
+
+  $(document).on('click', '#addplayertextarea', function(e) {
+    var $textarea = $('#playerval');
+    $textarea.scrollTop($textarea[0].scrollHeight);
+    $(this).text('Eklendi!').css({'color':'#46a146', "pointer-events": "none"})
+
+    let ni = $(this).attr('data-player');
+    let ta = $textarea.val().trim();
+    $textarea.val(`${ta}\n${ni}`).trigger('input');
+  });
+
+  const LEAGUES = [{"lid":68,"ln":"Süper Lig"},{"lid":13,"ln":"Premier League"},{"lid":16,"ln":"Ligue 1"},{"lid":19,"ln":"Bundesliga"},{"lid":53,"ln":"LaLiga"},{"lid":31,"ln":"Serie A"}]
+
+  const CLUBS = [{"cid":10,"cn":"Manchester City","lid":13},{"cid":73,"cn":"Paris Saint Germain","lid":16},{"cid":21,"cn":"FC Bayern München","lid":19},{"cid":243,"cn":"Real Madrid","lid":53},{"cid":241,"cn":"FC Barcelona","lid":53},{"cid":9,"cn":"Liverpool","lid":13},{"cid":11,"cn":"Manchester United","lid":13},{"cid":240,"cn":"Atlético Madrid","lid":53},{"cid":22,"cn":"Borussia Dortmund","lid":19},{"cid":44,"cn":"Inter","lid":31},{"cid":1,"cn":"Arsenal","lid":13},{"cid":47,"cn":"Milan","lid":31},{"cid":18,"cn":"Tottenham Hotspur","lid":13},{"cid":13,"cn":"Newcastle United","lid":13},{"cid":5,"cn":"Chelsea","lid":13},{"cid":52,"cn":"Roma","lid":31},{"cid":483,"cn":"Villarreal","lid":53},{"cid":45,"cn":"Juventus","lid":31},{"cid":32,"cn":"Bayer 04 Leverkusen","lid":19},{"cid":481,"cn":"Sevilla","lid":53},{"cid":111974,"cn":"Sassuolo","lid":31},{"cid":2,"cn":"Aston Villa","lid":13},{"cid":450,"cn":"Celta de Vigo","lid":53},{"cid":1824,"cn":"Eintracht Frankfurt","lid":19},{"cid":457,"cn":"Real Sociedad","lid":53},{"cid":25,"cn":"SC Freiburg","lid":19},{"cid":175,"cn":"VfL Wolfsburg","lid":19},{"cid":112172,"cn":"RB Leipzig","lid":19},{"cid":448,"cn":"Athletic Club","lid":53},{"cid":144,"cn":"Fulham","lid":13},{"cid":449,"cn":"Real Betis","lid":53},{"cid":453,"cn":"Mallorca","lid":53},{"cid":69,"cn":"Monaco","lid":16},{"cid":66,"cn":"Olympique Lyonnais","lid":16},{"cid":326,"cn":"Fenerbahçe","lid":68},{"cid":110373,"cn":"Salernitana","lid":31},{"cid":110062,"cn":"Girona","lid":53},{"cid":480,"cn":"Rayo Vallecano","lid":53},{"cid":479,"cn":"Osasuna","lid":53},{"cid":325,"cn":"Galatasaray","lid":68},{"cid":1860,"cn":"Getafe","lid":53},{"cid":1968,"cn":"Cádiz","lid":53},{"cid":1925,"cn":"Brentford","lid":13},{"cid":461,"cn":"Valencia","lid":53},{"cid":7,"cn":"Everton","lid":13},{"cid":65,"cn":"LOSC Lille","lid":16},{"cid":110374,"cn":"Fiorentina","lid":31},{"cid":219,"cn":"Olympique de Marseille","lid":16},{"cid":74,"cn":"Rennes","lid":16},{"cid":19,"cn":"West Ham United","lid":13},{"cid":14,"cn":"Nottingham Forest","lid":13},{"cid":10029,"cn":"TSG Hoffenheim","lid":19},{"cid":54,"cn":"Torino","lid":31},{"cid":72,"cn":"Nice","lid":16},{"cid":64,"cn":"Lens","lid":16},{"cid":1808,"cn":"Brighton & Hove Albion","lid":13},{"cid":111811,"cn":"Monza","lid":31},{"cid":1799,"cn":"Crystal Palace","lid":13},{"cid":23,"cn":"Borussia Mönchengladbach","lid":19},{"cid":70,"cn":"Montpellier","lid":16},{"cid":55,"cn":"Udinese","lid":31},{"cid":472,"cn":"Las Palmas","lid":53},{"cid":1831,"cn":"FC Union Berlin","lid":19},{"cid":379,"cn":"Stade de Reims","lid":16},{"cid":1861,"cn":"Almería","lid":53},{"cid":169,"cn":"FSV Mainz 05","lid":19},{"cid":36,"cn":"VfB Stuttgart","lid":19},{"cid":110,"cn":"Wolverhampton Wanderers","lid":13},{"cid":436,"cn":"Trabzonspor","lid":68},{"cid":76,"cn":"Strasbourg","lid":16},{"cid":327,"cn":"Beşiktaş","lid":68},{"cid":110832,"cn":"Granada","lid":53},{"cid":1796,"cn":"Burnley","lid":13},{"cid":189,"cn":"Bologna","lid":31},{"cid":110556,"cn":"Genoa","lid":31},{"cid":1943,"cn":"AFC Bournemouth","lid":13},{"cid":71,"cn":"Nantes","lid":16},{"cid":38,"cn":"Werder Bremen","lid":19},{"cid":217,"cn":"Lorient","lid":16},{"cid":31,"cn":"FC Köln","lid":19},{"cid":1746,"cn":"Empoli","lid":31},{"cid":347,"cn":"Lecce","lid":31},{"cid":131389,"cn":"Pendikspor","lid":68},{"cid":206,"cn":"Hellas Verona","lid":31},{"cid":160,"cn":"VfL Bochum 1848","lid":19},{"cid":101007,"cn":"Ankaragücü","lid":68},{"cid":463,"cn":"Deportivo Alavés","lid":53},{"cid":1809,"cn":"Toulouse","lid":16},{"cid":100409,"cn":"FC Augsburg","lid":19},{"cid":1842,"cn":"Cagliari","lid":31},{"cid":378,"cn":"Brest","lid":16},{"cid":741,"cn":"Antalyaspor","lid":68},{"cid":748,"cn":"Samsunspor","lid":68},{"cid":110776,"cn":"Gaziantep F.K.","lid":68},{"cid":1815,"cn":"Clermont","lid":16},{"cid":101016,"cn":"Adana Demirspor","lid":68},{"cid":101033,"cn":"Konyaspor","lid":68},{"cid":1794,"cn":"Sheffield United","lid":13},{"cid":101014,"cn":"İstanbul Başakşehir","lid":68},{"cid":1738,"cn":"Le Havre","lid":16},{"cid":111235,"cn":"Heidenheim","lid":19},{"cid":101037,"cn":"Rizespor","lid":68},{"cid":1923,"cn":"Luton Town","lid":13},{"cid":111117,"cn":"Fatih Karagümrük","lid":68},{"cid":113142,"cn":"Alanyaspor","lid":68},{"cid":68,"cn":"Metz","lid":16},{"cid":111339,"cn":"Kasımpaşa","lid":68},{"cid":110502,"cn":"Darmstadt 98","lid":19},{"cid":101041,"cn":"Sivasspor","lid":68},{"cid":111657,"cn":"Frosinone","lid":31},{"cid":101020,"cn":"Kayserispor","lid":68},{"cid":101028,"cn":"Hatayspor","lid":68},{"cid":746,"cn":"İstanbulspor","lid":68}]
+
+  function populateLeagues() {
+    const select = $('#leagues');
+    LEAGUES.forEach(league => {
+        const option = `<option value="${league.lid}">${league.ln}</option>`;
+        select.append(option);
+    });
+  }
+  function populateTeams(lid) {
+    const teams = CLUBS.filter(club => club.lid === lid)
+    .sort((a, b) => a.cn.localeCompare(b.cn)) // Sort by club names
+    .map(club => `<option value="${club.cid}">${club.cn}</option>`);
+    return teams.join('');
+  }
+
+  let cachedData = null;
+  function fetchLeaguePlayers(id) {
+      return new Promise(function(resolve, reject) {
+          if (cachedData) {
+              resolve(cachedData);
+          } else {
+              // https://api.npoint.io/${id}
+              $.getJSON(`https://gist.githubusercontent.com/mortyobnoxious/3a501f29b4a9ea6f3fd7b9038997e47d/raw/201cd848c15ee1486277ef66ad9f2c2651db6dca/players.json`, function(data) {
+                  cachedData = data;
+                  resolve(data);
+              }).fail(function(error) {
+                  reject(error);
+              });
+          }
+      });
+  }
+
+  function getTeamNameByCid(cid) {
+    const club = CLUBS.find(club => club.cid === cid);
+    return club ? club.cn : 'Unknown';
+  }
+  function filterAndSortPlayers(players, league, position) {
+    const filteredPlayers = players.filter(player => (player.p.includes(position) && player.lid == league)).sort((a, b) => b.r - a.r);
+    return filteredPlayers;
+  }
+  $(document).on('click', '#getplayers', function(e) {
+    let lg = $('#leagues').val() || 68
+    let p = $('#positions').val() || "";
+    spin($(this));
+    fetchLeaguePlayers("402a025ddfaaa53089da").then(function(data) {
+      $('#searchresults').empty();
+      let lid = 0;
+      filterAndSortPlayers(data.players, lg, p).forEach(item => {
+          lid = item.lid
+          let tn = getTeamNameByCid(item.cid)
+          item.teamname = tn;
+          const $div = createPlayerDiv(item);
+          $('#searchresults').append($div);
+          document.getElementById('searchresults').scrollIntoView({ behavior: 'smooth'});
+      });
+      $('#teams').remove();
+      $('#searchresults').before(`<select id="teams"><option value="" selected>-- Takım Seç --</option>${populateTeams(lid)}
+          </select>`)
+      spin($('#getplayers'), false);
+    }).catch(e => {
+      console.log(e);
+      spin($('#getplayers'), false);
+    });
+  });
+
+  $(document).on('change', '#teams', function(e) {
+      const selectedTeam = $(this).find('option:selected').text();
+      $('#searchresults .player').hide().filter(function() {
+          return $(this).find('.teamname').text() === selectedTeam;
+      }).show();
+      if($(this).find('option:selected').val() === '') {$('#searchresults .player').show()};
+  });
+
+  $(document).on('click', '#playersave', function(e){
+    let playerName = $('#playerval').val().trim().split('\n');
+      var playerArray = playerName.filter(line => line.trim() !== '').map(line => {
+        var [name, id] = line.split(';').map(item => item.trim());
+        return { name, id };
+      });
+      localStorage.setItem("playerData", JSON.stringify(playerArray));
+      var $notifDiv = $(".notif");
+      var orContent = $notifDiv.html()
+      
+      $notifDiv.html("<mark class='green'>Kaydedildi!</mark><br>Değişiklikleri görmek için sayfayı yenileyin!").delay(3000).queue(function(next) {
+          $(this).html(orContent);
+          next();
+      });
+  });
+  function shuffleTextareaText(elementId) {
+    var lines = $('#' + elementId).val().split('\n');
+    $('#' + elementId).val(lines.sort(() => Math.random() - 0.5).join('\n')).trigger('input');;
+  }
+  function removeDuplicates(elementId) {
+    let el = $('#' + elementId)
+    const uniqueLines = Array.from(new Set(el.val().split('\n').map(line => line.split(';')[1]))).map(id => el.val().split('\n').find(line => line.includes(id)));
+    $(el).val(uniqueLines.join('\n')).trigger('input');;
+  }
+  function selectRandomPlayers(players, position, count) {
+      const selectedPlayers = players.filter(player => player.p.split(',').includes(position));
+      const uniquePlayers = [...new Map(selectedPlayers.map(player => [player.id, player])).values()];
+      return uniquePlayers.sort(() => 0.5 - Math.random()).slice(0, count);
+  }
+  function selectPlayers(players) {
+      const LBLWB = selectRandomPlayers(players, 'LB', 9).concat(selectRandomPlayers(players, 'LWB', 3));
+      const RBRWB = selectRandomPlayers(players, 'RB', 9).concat(selectRandomPlayers(players, 'RWB', 3));
+      const CDMCMCAM = selectRandomPlayers(players, 'CM', 12).concat(selectRandomPlayers(players, 'CAM', 12)).concat(selectRandomPlayers(players, 'CDM', 12));
+      const STCF = selectRandomPlayers(players, 'ST', 6).concat(selectRandomPlayers(players, 'CF', 2));
+      const LWLM = selectRandomPlayers(players, 'LW', 8).concat(selectRandomPlayers(players, 'LM', 4));
+      const RWRM = selectRandomPlayers(players, 'RW', 8).concat(selectRandomPlayers(players, 'RM', 4));
+      const randomlySelectedPlayers = [selectRandomPlayers(players, 'GK', 4), selectRandomPlayers(players, 'CB', 7), LBLWB.slice(0, 4), RBRWB.slice(0, 4), CDMCMCAM.slice(0, 10), LWLM.slice(0, 4), RWRM.slice(0, 4), STCF.slice(0, 4)].reduce((acc, curr) => acc.concat(curr), []);
+      return randomlySelectedPlayers
+  }
+  $(document).on('click', '#playershuffle', function(e){
+    shuffleTextareaText('playerval');
+  });
+  $(document).on('click', '#removeduplicates', function(e){
+    removeDuplicates('playerval');
+  });
+  $(document).on('click', '#randomplayers', function(e){
+    spin($('#randomplayers'));
+    fetchLeaguePlayers("402a025ddfaaa53089da").then(function(data) {
+      $('#playerval').val(selectPlayers(data.players).map(({ n, id }) => `${n};${id}`).join('\n')).trigger('change')
+      spin($('#randomplayers'), false);
+      shuffleTextareaText('playerval');
+      removeDuplicates('playerval');
+    }).catch(e => {
+      console.log(e);
+      spin($('#randomplayers'), false);
+    });
+    
+  });
+  $(document).on('input', '#playerval', function(e){
+      let playerData = $('#playerval').val().trim().split('\n');
+      $('.popup-header h3 small').text(`(${playerData.length})`)
+  });
+
+  function toggleBlindBlurClass() {
+    if ($('#blind').is(':checked')) {
+      $('.tools .drag').addClass('blindblur');
+    } else {
+      $('.tools .drag').removeClass('blindblur');
+    }
+  }
+
+  toggleBlindBlurClass();
+  $(document).on('change', '#blind', function(e){
+    toggleBlindBlurClass();
+  });
+
+$(document).on('click', '.streamers', function(e){
+  const fileInput = $('<input type="file">').attr('accept', 'image/jpeg, image/png, image/webp');
+  const clickedImage = $(this);
+  fileInput.click();
+  fileInput.change(function() {
+    const selectedFile = fileInput[0].files[0];
+    if (selectedFile) {
+      clickedImage.attr('src', URL.createObjectURL(selectedFile));
+    }
+  });
+});
+
+});
+
+  </script>
+
+  </body><editor-card style="position:absolute;top:0px;left:0px;z-index:auto;display: block !important"><div dir="ltr" style="all: initial;"><div style="color: initial; font: initial; font-palette: initial; font-synthesis: initial; forced-color-adjust: initial; position: absolute; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; accent-color: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; animation-composition: initial; animation: initial; app-region: initial; appearance: initial; aspect-ratio: initial; backdrop-filter: initial; backface-visibility: initial; background: initial; background-blend-mode: initial; baseline-shift: initial; baseline-source: initial; block-size: initial; border-block: initial; border: initial; border-radius: initial; border-collapse: initial; border-end-end-radius: initial; border-end-start-radius: initial; border-inline: initial; border-start-end-radius: initial; border-start-start-radius: initial; inset: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; color-scheme: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-block-size: initial; contain-intrinsic-size: initial; contain-intrinsic-inline-size: initial; container: initial; content: initial; content-visibility: initial; counter-increment: initial; counter-reset: initial; counter-set: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: initial; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: initial; hyphenate-character: initial; hyphenate-limit-chars: initial; hyphens: initial; image-orientation: initial; image-rendering: initial; initial-letter: initial; inline-size: initial; inset-block: initial; inset-inline: initial; isolation: initial; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block: initial; margin: initial; margin-inline: initial; marker: initial; mask: initial; mask-type: initial; math-depth: initial; math-shift: initial; math-style: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: initial; mix-blend-mode: initial; object-fit: initial; object-position: initial; object-view-box: initial; offset: initial; opacity: initial; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-clip-margin: initial; overflow-wrap: initial; overflow: initial; overlay: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block: initial; padding: initial; padding-inline: initial; page: initial; page-orientation: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; quotes: initial; r: initial; resize: initial; rotate: initial; ruby-position: initial; rx: initial; ry: initial; scale: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; scroll-timeline: initial; scrollbar-color: initial; scrollbar-gutter: initial; scrollbar-width: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-emphasis: initial; text-emphasis-position: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-offset: initial; text-underline-position: initial; white-space: initial; timeline-scope: initial; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; transition: initial; translate: initial; user-select: initial; vector-effect: initial; vertical-align: initial; view-timeline: initial; view-transition-name: initial; visibility: initial; border-spacing: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; widows: initial; width: initial; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: 2147483647;"><link rel="stylesheet" href="chrome-extension://gpaiobkfhnonedkhhfjpmhdalgeoebfa/fonts/fabric-icons.css"><div style="all: initial;"><template shadowrootmode="open"></template></div></div><div style="color: initial; font: initial; font-palette: initial; font-synthesis: initial; forced-color-adjust: initial; position: absolute; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; accent-color: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; animation-composition: initial; animation: initial; app-region: initial; appearance: initial; aspect-ratio: initial; backdrop-filter: initial; backface-visibility: initial; background: initial; background-blend-mode: initial; baseline-shift: initial; baseline-source: initial; block-size: initial; border-block: initial; border: initial; border-radius: initial; border-collapse: initial; border-end-end-radius: initial; border-end-start-radius: initial; border-inline: initial; border-start-end-radius: initial; border-start-start-radius: initial; inset: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; color-scheme: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; contain-intrinsic-block-size: initial; contain-intrinsic-size: initial; contain-intrinsic-inline-size: initial; container: initial; content: initial; content-visibility: initial; counter-increment: initial; counter-reset: initial; counter-set: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: initial; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: initial; hyphenate-character: initial; hyphenate-limit-chars: initial; hyphens: initial; image-orientation: initial; image-rendering: initial; initial-letter: initial; inline-size: initial; inset-block: initial; inset-inline: initial; isolation: initial; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block: initial; margin: initial; margin-inline: initial; marker: initial; mask: initial; mask-type: initial; math-depth: initial; math-shift: initial; math-style: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: initial; mix-blend-mode: initial; object-fit: initial; object-position: initial; object-view-box: initial; offset: initial; opacity: initial; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-clip-margin: initial; overflow-wrap: initial; overflow: initial; overlay: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block: initial; padding: initial; padding-inline: initial; page: initial; page-orientation: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; quotes: initial; r: initial; resize: initial; rotate: initial; ruby-position: initial; rx: initial; ry: initial; scale: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; scroll-timeline: initial; scrollbar-color: initial; scrollbar-gutter: initial; scrollbar-width: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-emphasis: initial; text-emphasis-position: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-offset: initial; text-underline-position: initial; white-space: initial; timeline-scope: initial; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; transition: initial; translate: initial; user-select: initial; vector-effect: initial; vertical-align: initial; view-timeline: initial; view-transition-name: initial; visibility: initial; border-spacing: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-mask-box-image: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; widows: initial; width: initial; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: 2147483647;"><link rel="stylesheet" href="chrome-extension://gpaiobkfhnonedkhhfjpmhdalgeoebfa/fonts/fabric-icons.css"></div></div></editor-card></html>
